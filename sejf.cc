@@ -75,14 +75,13 @@ void Sejf::operator*=(int liczba)
 
 int16_t Sejf::operator[](int index)
 {
-    return -1;
 	if (debug)
 		cout << "operator[" << index << "] dostep " << this->dostep << endl;
 	if (dostep == 0){
 		czy_wlamanie = true;
 		return -1;
 	}
-	if (index >= this->napis.size() || index < 0)
+	if (index < 0 || (unsigned int) index >= this->napis.size())
 		return -1;
 
 	dostep--;
