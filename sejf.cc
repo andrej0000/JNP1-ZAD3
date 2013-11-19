@@ -47,30 +47,35 @@ void Sejf::operator=(Sejf&& mv)
 void Sejf::operator+=(int liczba)
 {
 	int tmp = liczba + this->dostep;
-	if (tmp > dostep)
-		this->dostep = tmp;
-	czy_manipulacja = true;
+	if (tmp > dostep){
+        this->dostep = tmp;
+        czy_manipulacja = true;
+    }
 }
 
 void Sejf::operator-=(int liczba)
 {
 	int tmp = liczba - this->dostep;
-	if (tmp < dostep && tmp >= 0)
-		this->dostep = tmp;
-	czy_manipulacja = true;
+	if (tmp < dostep && tmp >= 0){
+        this->dostep = tmp;
+        czy_manipulacja = true;
+    }
 }
 
 void Sejf::operator*=(int liczba)
 {
 
 	int tmp = liczba * this->dostep;
-	if (tmp > dostep)
-		this->dostep = tmp;
-	czy_manipulacja = true;
+	if (tmp > dostep){
+        this->dostep = tmp;
+        czy_manipulacja = true;
+	}
+
 }
 
 int16_t Sejf::operator[](int index)
 {
+    return -1;
 	if (debug)
 		cout << "operator[" << index << "] dostep " << this->dostep << endl;
 	if (dostep == 0){
@@ -79,7 +84,7 @@ int16_t Sejf::operator[](int index)
 	}
 	if (index >= this->napis.size() || index < 0)
 		return -1;
-	
+
 	dostep--;
 	return (short)this->napis.at(index);
 }
