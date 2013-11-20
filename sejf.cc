@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <assert.h>
 #include "sejf.h"
 #ifdef DEBUG
 const bool debug = true;
@@ -7,18 +8,14 @@ const bool debug = true;
 const bool debug = false;
 #endif
 
-
 using namespace std;
-/*using std::string;
-using std::cout;
-using std::cin;
-using std::endl;*/
 
 Sejf::Sejf(const string & str, int liczba) : napis(str), czy_wlamanie(false), czy_manipulacja(false)
 {
 	if (debug)
 		cout << "Constructor Sejf(string, int)" << endl;
-	if (liczba < 0 || liczba > MAX_DOSTEPY)
+    assert(liczba >= 0);
+	if (liczba > MAX_DOSTEPY)
 		liczba = DOMYSLNE_DOSTEPY;
 	this->dostep = liczba;
 }
@@ -41,13 +38,14 @@ void Sejf::operator=(Sejf&& mv)
 	if (this != &mv){
 		this->napis = move(mv.napis);
 		this->dostep = mv.dostep;
+
 	}
 }
 
 void Sejf::operator+=(int liczba)
 {
 	int tmp = liczba + this->dostep;
-	if (tmp > dostep){
+	if (tmp >= dostep){
         this->dostep = tmp;
         czy_manipulacja = true;
     }
@@ -55,8 +53,8 @@ void Sejf::operator+=(int liczba)
 
 void Sejf::operator-=(int liczba)
 {
-	int tmp = liczba - this->dostep;
-	if (tmp < dostep && tmp >= 0){
+	int tmp = this->dostep - liczba;
+	if (tmp <= dostep && tmp >= 0){
         this->dostep = tmp;
         czy_manipulacja = true;
     }
@@ -66,7 +64,7 @@ void Sejf::operator*=(int liczba)
 {
 
 	int tmp = liczba * this->dostep;
-	if (tmp > dostep){
+	if (tmp >= dostep){
         this->dostep = tmp;
         czy_manipulacja = true;
 	}
