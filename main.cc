@@ -12,6 +12,7 @@ int main(){
 	Sejf s("kupa", 2);
 	Sejf s2("dupa", 0);
 	swap(s, s2);
+	cout << "s[1]: " << s2[-1] << endl;
 	cout << "s[0]: " <<(char) s2[0] << endl;
 	cout << "s[5]: " <<(char) s2[5] << endl;
 	cout << "s[1]: " <<(char) s2[1] << endl;

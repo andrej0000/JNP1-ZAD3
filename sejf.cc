@@ -77,18 +77,18 @@ void Sejf::operator*=(int liczba)
 
 }
 
-int16_t Sejf::operator[](unsigned int index)
+int16_t Sejf::operator[](int index)
 {
 	if (debug)
 		cout << "operator[" << index << "] dostep " << this->dostep << endl;
+    if (index < 0 || (unsigned int) index >= this->napis.size())
+		return -1;
 	if (dostep == 0){
 		czy_wlamanie = true;
 		if (debug)
 			cout << "Wlamanie" << endl;
 		return -1;
 	}
-	if (index < 0 || index >= this->napis.size())
-		return -1;
 
 	dostep--;
 	return (short)this->napis.at(index);
