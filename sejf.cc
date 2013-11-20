@@ -17,7 +17,7 @@ using std::endl;*/
 
 int init_dostep(int d)
 {
-	assert(d > 0);
+	assert(d >= 0);
 	if (d < 0 || d > MAX_DOSTEPY)
 		d = DOMYSLNE_DOSTEPY;
 	return d;
@@ -46,7 +46,11 @@ void Sejf::operator=(Sejf&& mv)
 	if (this != &mv){
 		this->napis = move(mv.napis);
 		this->dostep = mv.dostep;
+		this->czy_manipulacja = mv.czy_manipulacja;
+		this->czy_wlamanie = mv.czy_wlamanie;
 	}
+	else if (debug)
+		cout << "Self assignment" << endl;
 }
 
 void Sejf::operator+=(int liczba)
@@ -84,6 +88,8 @@ int16_t Sejf::operator[](unsigned int index)
 		cout << "operator[" << index << "] dostep " << this->dostep << endl;
 	if (dostep == 0){
 		czy_wlamanie = true;
+		if (debug)
+			cout << "Wlamanie" << endl;
 		return -1;
 	}
 	if (index < 0 || index >= this->napis.size())
