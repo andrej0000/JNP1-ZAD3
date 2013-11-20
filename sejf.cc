@@ -8,12 +8,7 @@ const bool debug = true;
 const bool debug = false;
 #endif
 
-
 using namespace std;
-/*using std::string;
-using std::cout;
-using std::cin;
-using std::endl;*/
 
 int init_dostep(int d)
 {
@@ -33,6 +28,7 @@ Sejf::Sejf(Sejf&& mv) : napis(move(mv.napis)), dostep(mv.dostep), czy_wlamanie(m
 {
 	if (debug)
 		cout << "Move constructor Sejf(Sejf&&)" << endl;
+	this->napis = move(mv.napis);
 }
 
 Sejf::~Sejf()
@@ -56,7 +52,7 @@ void Sejf::operator=(Sejf&& mv)
 void Sejf::operator+=(int liczba)
 {
 	int tmp = liczba + this->dostep;
-	if (tmp > dostep){
+	if (tmp >= dostep){
         this->dostep = tmp;
         czy_manipulacja = true;
     }
@@ -64,8 +60,8 @@ void Sejf::operator+=(int liczba)
 
 void Sejf::operator-=(int liczba)
 {
-	int tmp = liczba - this->dostep;
-	if (tmp < dostep && tmp >= 0){
+	int tmp = this->dostep - liczba;
+	if (tmp <= dostep && tmp >= 0){
         this->dostep = tmp;
         czy_manipulacja = true;
     }
@@ -75,7 +71,7 @@ void Sejf::operator*=(int liczba)
 {
 
 	int tmp = liczba * this->dostep;
-	if (tmp > dostep){
+	if (tmp >= dostep){
         this->dostep = tmp;
         czy_manipulacja = true;
 	}

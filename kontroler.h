@@ -11,7 +11,7 @@ class Kontroler {
 
 	public:
 		friend std::ostream & operator<<(std::ostream & out, const Kontroler & kontroler);
-		operator bool() const;
+		explicit operator bool() const;
 	private:
 		Kontroler(Sejf *s);
 		Sejf *sejf;
