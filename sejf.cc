@@ -28,7 +28,6 @@ Sejf::Sejf(Sejf&& mv) : napis(move(mv.napis)), dostep(mv.dostep), czy_wlamanie(m
 {
 	if (debug)
 		cout << "Move constructor Sejf(Sejf&&)" << endl;
-	this->napis = move(mv.napis);
 }
 
 Sejf::~Sejf()
