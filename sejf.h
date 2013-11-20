@@ -13,8 +13,8 @@ class Kontroler;
 class Sejf {
 	friend class Kontroler;
 	private:
-		int dostep;
 		std::string napis;
+		int dostep;
 		bool czy_wlamanie;
 		bool czy_manipulacja;
 	public:
@@ -26,7 +26,7 @@ class Sejf {
 		void operator+=(int liczba);
 		void operator*=(int liczba);
 		void operator-=(int liczba);
-		int16_t operator[](int index);
+		int16_t operator[](unsigned int index);
 		friend std::ostream & operator<<(std::ostream & out, const Kontroler & kontroler);
 };
 

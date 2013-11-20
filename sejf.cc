@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <assert.h>
 #include "sejf.h"
 #ifdef DEBUG
 const bool debug = true;
@@ -14,20 +15,24 @@ using std::cout;
 using std::cin;
 using std::endl;*/
 
-Sejf::Sejf(const string & str, int liczba) : napis(str), czy_wlamanie(false), czy_manipulacja(false)
+int init_dostep(int d)
+{
+	assert(d > 0);
+	if (d < 0 || d > MAX_DOSTEPY)
+		d = DOMYSLNE_DOSTEPY;
+	return d;
+}
+
+Sejf::Sejf(const string & str, int liczba) : napis(move(str)), dostep(init_dostep(liczba)), czy_wlamanie(false), czy_manipulacja(false)
 {
 	if (debug)
 		cout << "Constructor Sejf(string, int)" << endl;
-	if (liczba < 0 || liczba > MAX_DOSTEPY)
-		liczba = DOMYSLNE_DOSTEPY;
-	this->dostep = liczba;
 }
 
-Sejf::Sejf(Sejf&& mv)
+Sejf::Sejf(Sejf&& mv) : napis(move(mv.napis)), dostep(mv.dostep), czy_wlamanie(mv.czy_wlamanie), czy_manipulacja(mv.czy_manipulacja)
 {
 	if (debug)
 		cout << "Move constructor Sejf(Sejf&&)" << endl;
-	this->napis = move(mv.napis);
 }
 
 Sejf::~Sejf()
@@ -73,7 +78,7 @@ void Sejf::operator*=(int liczba)
 
 }
 
-int16_t Sejf::operator[](int index)
+int16_t Sejf::operator[](unsigned int index)
 {
 	if (debug)
 		cout << "operator[" << index << "] dostep " << this->dostep << endl;
@@ -81,7 +86,7 @@ int16_t Sejf::operator[](int index)
 		czy_wlamanie = true;
 		return -1;
 	}
-	if (index < 0 || (unsigned int) index >= this->napis.size())
+	if (index < 0 || index >= this->napis.size())
 		return -1;
 
 	dostep--;
